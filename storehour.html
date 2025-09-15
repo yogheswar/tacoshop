@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>LTS Hours</title>
+  <link rel="icon" href="C:\Users\yoghe\Downloads\montatip-lilitsanong-iU26ZSJh9yw-unsplash.jpg" type="image/x-icon"/>
+  <link rel="stylesheet" href="taco.css" />
+</head>
+<body>
+  <header>
+    <div>
+      <h1>The Little Taco Shop Hours</h1>
+      <nav>
+        <ul>
+          <li><a href="taco.html" target="_self">Home</a></li>
+          <li><a href="taco.html/#about">About LTS</a></li>
+          <li><a href="taco.html/#menu">Our Menu</a></li>
+          <li><a href="contact.html" target="_blank">Contact Us</a></li>
+        </ul>
+      </nav>
+      <!-- ✅ Image that will be replaced by Pexels API -->
+      <figure>
+        <img id="mainTaco" src="fallback.jpg" alt="Taco Image" width="350" height="200">
+        <figcaption>A Tray of Tasty Tacos</figcaption>
+      </figure>
+    </div>
+    <hr>
+  </header>
+
+  <main>
+    <div id="timings">
+      <p>We are open 7 days a week!</p>
+      <dl>
+        <dt>Sunday - Thursday</dt>
+        <dd><time datetime="11:00">11am</time> - <time datetime="21:00">9pm</time></dd>
+        <dt>Friday - Saturday</dt>
+        <dd><time datetime="11:00">11am</time> - <time datetime="23:00">11pm</time></dd>
+      </dl>
+    </div>
+    <p><a href="#">Back to top</a></p>
+    <hr>
+  </main>
+
+  <footer>
+    <p>Copyright &copy; The Little Taco Shop</p>
+  </footer>
+
+  <!-- ✅ Script for loading taco image dynamically -->
+  <script>
+    const API_KEY = "LcPMZChNxZ6fuXKT3lUE8DuigZYiiem0Njg4JmnbqyRFDoIozzyNIjm3";
+    const query = "tacos";
+
+    fetch(`https://api.pexels.com/v1/search?query=${query}&per_page=10`, {
+      headers: {
+        Authorization: API_KEY
+      }
+    })
+    .then(response => response.json())
+    .then(data => {
+      const randomIndex = Math.floor(Math.random() * data.photos.length);
+      const tacoImage = data.photos[randomIndex];
+      const tacoImgElement = document.getElementById("mainTaco");
+      tacoImgElement.src = tacoImage.src.medium;
+      tacoImgElement.alt = "Image by " + tacoImage.photographer;
+    })
+    .catch(error => {
+      console.error("Failed to load taco image from Pexels:", error);
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LTS Contact</title>
+  <link rel="icon" href="C:\Users\yoghe\Downloads\montatip-lilitsanong-iU26ZSJh9yw-unsplash.jpg" type="image/x-icon" />
+  <link rel="stylesheet" href="taco.css" />
+</head>
+<body>
+  <header>
+    <div>
+      <h1>Contact Us</h1>
+      <nav>
+        <ul>
+          <li><a href="taco.html" target="_self">Home</a></li>
+          <li><a href="taco.html/#about">About LTS</a></li>
+          <li><a href="taco.html/#menu">Our Menu</a></li>
+          <li><a href="storehour.html" target="_blank">Store Hours</a></li>
+        </ul>
+      </nav>
+
+      <!-- ✅ Dynamically loaded taco image -->
+      <figure>
+        <img id="contactTaco" src="fallback.jpg" alt="Store Hours Image" width="350" height="200" />
+        <figcaption>Little Taco Shop Tacos</figcaption>
+      </figure>
+    </div>
+    <hr />
+  </header>
+
+  <main>
+    <div>
+      <h2>Our Contact Form</h2>
+      <form action="https://httpbin.org/get" method="get">
+        <fieldset>
+          <legend>Send Us A Message</legend>
+          <p>
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required />
+          </p>
+          <p>
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required />
+          </p>
+          <p>
+            <label for="message">Your Message:</label>
+            <textarea id="message" name="message" rows="4" cols="50" required></textarea>
+          </p>
+        </fieldset>
+        <br />
+        <button type="submit">Send</button>
+        <button type="reset">Reset</button>
+      </form>
+
+      <h2>Our Location</h2>
+      <address>
+        555 Taco Temptation Lane, Suite T, Kansas City, MO 55555-5555<br />
+        Phone: <a href="tel:+9994463950">+91 99446 3950</a><br />
+      </address>
+      <hr />
+    </div>
+  </main>
+
+  <footer>
+    <p>Copyright &copy; The Little Taco Shop</p>
+    <p>Follow us on social media!</p>
+    <ul>
+      <li><a href="https://www.facebook.com/littletacoshop" target="_blank" rel="noopener">Facebook</a></li>
+      <li><a href="https://www.instagram.com/littletacoshop" target="_blank" rel="noopener">Instagram</a></li>
+      <li><a href="https://www.twitter.com/littletacoshop" target="_blank" rel="noopener">Twitter</a></li>
+    </ul>
+  </footer>
+
+  <!-- ✅ Pexels API script -->
+  <script>
+    const API_KEY = "LcPMZChNxZ6fuXKT3lUE8DuigZYiiem0Njg4JmnbqyRFDoIozzyNIjm3";
+    const query = "tacos";
+
+    fetch(`https://api.pexels.com/v1/search?query=${query}&per_page=10`, {
+      headers: {
+        Authorization: API_KEY
+      }
+    })
+      .then(response => response.json())
+      .then(data => {
+        const randomIndex = Math.floor(Math.random() * data.photos.length);
+        const tacoImage = data.photos[randomIndex];
+        const imgElement = document.getElementById("contactTaco");
+        imgElement.src = tacoImage.src.medium;
+        imgElement.alt = "Image by " + tacoImage.photographer;
+      })
+      .catch(error => {
+        console.error("Error loading taco image:", error);
+      });
+  </script>
+</body>
+</html>
